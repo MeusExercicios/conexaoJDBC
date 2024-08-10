@@ -34,6 +34,7 @@ public class App {
             System.out.println("1. Consultar dados");
             System.out.println("2. Inserir dados");
             System.out.println("3. Atualizar dados");
+            System.out.println("4. Deletar dados");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Limpa o buffer
 
@@ -90,6 +91,23 @@ public class App {
                 System.out.println("Atualizado com sucesso! Linhas afetadas: " + rowsAffected);
 
                 preparedStatement.close();
+            } else if (choice == 4) {
+                System.out.println("Qual o id do registro que deseja deletar ?");
+                int deletarRegistroId = scanner.nextInt();
+                scanner.nextLine();
+
+                String sql = "DELETE FROM userbancoprojeto WHERE id = ?";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+                preparedStatement.setInt(1,deletarRegistroId);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                System.out.println("Deletado com sucesso! Linhas afetadas: " + rowsAffected);
+
+                preparedStatement.close();
+
             } else {
                 System.out.println("Opção inválida.");
             }
